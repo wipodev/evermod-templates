@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "released": "2025-10-30",
+  "changelog": [
+    "Initial release of EverMod Forge templates.",
+    "Added base template for gradle.properties with EverMod placeholders.",
+    "Included build.gradle template for Forge 1.19.2.",
+    "Included build.gradle template for Forge 1.20.1.",
+    "Included build.gradle template for Forge 1.21.",
+    "Introduced versions.json with Minecraft–Forge version mapping for EverMod create command."
+  ],
+  "notes": "This is the first public release of EverMod templates, establishing the foundation for cross-version mod creation using the EverMod CLI."
+}
