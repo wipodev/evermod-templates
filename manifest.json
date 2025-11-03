@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "released": "2025-10-30",
+  "version": "1.1.0",
+  "released": "2025-11-02",
   "changelog": [
-    "Initial release of EverMod Forge templates.",
-    "Added base template for gradle.properties with EverMod placeholders.",
-    "Included build.gradle template for Forge 1.19.2.",
-    "Included build.gradle template for Forge 1.20.1.",
-    "Included build.gradle template for Forge 1.21.",
-    "Introduced versions.json with Minecraft–Forge version mapping for EverMod create command."
+    "Unified all Forge build templates into a single dynamic Jinja2-based template system.",
+    "Added support for automatic variable rendering from versions.json to generate build.gradle and gradle.properties.",
+    "Introduced new MainMod.java.j2 template with placeholders for mod_id, group, and author.",
+    "Included default files required for complete mod structure: mods.toml, pack.mcmeta, LICENSE.txt, and Gradle wrapper files.",
+    "Refactored versions.json with expanded metadata for each Minecraft–Forge version (Java version, eventBus7, reobf, etc.).",
+    "Simplified EverMod CLI integration — templates are now self-contained and version-aware.",
+    "Removed redundant per-version build.gradle files, replaced by Jinja2 parameterization for maintainability and scalability."
   ],
-  "notes": "This is the first public release of EverMod templates, establishing the foundation for cross-version mod creation using the EverMod CLI."
+  "notes": "This update transitions EverMod templates from static version-based files to a unified, auto-generated structure using Jinja2. It enables faster updates, reduces duplication, and ensures future compatibility with all supported Minecraft–Forge versions."
 }

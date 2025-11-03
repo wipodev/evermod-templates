@@ -1,0 +1,58 @@
+package {{ package_name }};
+
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import net.evermod.common.network.ChannelManager;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+@Mod(MainMod.MODID)
+public class MainMod {
+  public static final Logger LOGGER = LogManager.getLogger(MainMod.class);
+  public static final String MODID = "{{ mod_id }}";
+
+  public MainMod() {
+    MinecraftForge.EVENT_BUS.register(this);
+    @SuppressWarnings("removal")
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+    bus.addListener(this::commonSetup);
+  }
+
+  private void commonSetup(final FMLCommonSetupEvent event) {
+    ChannelManager.register(MODID);
+    // Register network packets here
+    // Example: ChannelManager.registerPacket(YourPacketClass.class);
+  }
+
+  private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue =
+      new ConcurrentLinkedQueue<>();
+
+  public static void queueServerWork(int tick, Runnable action) {
+    workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
+  }
+
+  @SubscribeEvent
+  public void tick(TickEvent.ServerTickEvent event) {
+    if (event.phase == TickEvent.Phase.END) {
+      List<AbstractMap.SimpleEntry<Runnable, Integer>> actions = new ArrayList<>();
+      workQueue.forEach(work -> {
+        work.setValue(work.getValue() - 1);
+        if (work.getValue() == 0)
+          actions.add(work);
+      });
+      actions.forEach(e -> e.getKey().run());
+      workQueue.removeAll(actions);
+    }
+  }
+}

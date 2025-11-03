@@ -1,0 +1,33 @@
+org.gradle.jvmargs=-Xmx3G
+org.gradle.daemon=false
+org.gradle.parallel=true
+org.gradle.caching=true
+org.gradle.configuration-cache=true
+{%- if include_maven_repositories %}
+# Gradle recompilation settings
+systemProp.net.minecraftforge.gradle.repo.recompile.fork=true
+systemProp.net.minecraftforge.gradle.repo.recompile.fork.args=-Xmx5G
+
+# Disable automatic repository injection by ForgeGradle
+systemProp.net.minecraftforge.gradle.repo.attach=false
+{%- endif %}
+
+## Environment Properties
+minecraft_version={{ minecraft_version }}
+minecraft_version_range={{ minecraft_version_range }}
+forge_version={{ forge_version }}
+forge_version_range=[{{ forge_version_mayor }},)
+loader_version_range=[{{ forge_version_mayor }},)
+mapping_channel=official
+mapping_version={{ minecraft_version }}
+
+## Mod Properties
+mod_id={{ mod_id }}
+mod_name={{ mod_name }}
+mod_license=All Rights Reserved
+mod_version=1.0.0
+mod_url=https://www.wipodev.com
+mod_group_id={{ package_name }}
+mod_logo=logo.png
+mod_authors={{ mod_authors }}
+mod_description={{ mod_name }} description.\nNewline characters can be used and will be replaced properly.
