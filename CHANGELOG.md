@@ -5,6 +5,27 @@ This file complements `manifest.json`, which always describes only the latest ve
 
 ---
 
+## [1.2.0] - 2025-11-03
+
+### Added
+
+- Introduced `pack.mcmeta.j2` dynamic template supporting all Forge versions up to **1.21.10**.
+- Implemented automatic rendering of all templates (`build.gradle`, `gradle.properties`, `MainMod.java`, and `pack.mcmeta`) directly from **versions.json** metadata.
+- Added support for new `min_format` and `max_format` fields introduced in Minecraft 1.21.9+.
+- Expanded `versions.json` with detailed version metadata: `forge_gradle`, `java_version`, `eventBus7`, `reobf`, and more.
+- Enabled full synchronization between **evermod-cli** and **evermod-templates** repositories for seamless mod generation.
+
+### Changed
+
+- Refined `pack.mcmeta` description handling to follow Minecraft’s JSON text format evolution (from 1.19.2 plain text to 1.19.4+ JSON objects).
+- Unified version handling logic — templates now auto-adjust per version instead of requiring manual edits.
+- Optimized maintainability by consolidating all version-dependent structures into a single dynamic rendering system.
+- Improved EverMod CLI integration for automatic template resolution and context passing.
+
+---
+
+---
+
 ## [1.1.0] - 2025-11-02
 
 ### Changed

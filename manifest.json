@@ -1,14 +1,14 @@
 {
-  "version": "1.1.0",
-  "released": "2025-11-02",
+  "version": "1.2.0",
+  "released": "2025-11-03",
   "changelog": [
-    "Unified all Forge build templates into a single dynamic Jinja2-based template system.",
-    "Added support for automatic variable rendering from versions.json to generate build.gradle and gradle.properties.",
-    "Introduced new MainMod.java.j2 template with placeholders for mod_id, group, and author.",
-    "Included default files required for complete mod structure: mods.toml, pack.mcmeta, LICENSE.txt, and Gradle wrapper files.",
-    "Refactored versions.json with expanded metadata for each Minecraft–Forge version (Java version, eventBus7, reobf, etc.).",
-    "Simplified EverMod CLI integration — templates are now self-contained and version-aware.",
-    "Removed redundant per-version build.gradle files, replaced by Jinja2 parameterization for maintainability and scalability."
+    "Added dynamic pack.mcmeta.j2 template supporting all Forge versions up to 1.21.10.",
+    "Integrated unified version mapping through versions.json for automatic Jinja2 rendering.",
+    "Expanded version metadata with fields like forge_gradle, java_version, eventBus7, reobf, and min/max_format for newer releases.",
+    "Enhanced create command compatibility with the new template system in evermod-cli.",
+    "Refined description handling in pack.mcmeta to match Minecraft JSON format evolution from 1.19.2 to 1.21.10.",
+    "Improved maintainability by consolidating all resource, data, and configuration templates into a single, version-aware structure.",
+    "Ensured full synchronization between evermod-cli and evermod-templates repositories for seamless mod creation."
   ],
-  "notes": "This update transitions EverMod templates from static version-based files to a unified, auto-generated structure using Jinja2. It enables faster updates, reduces duplication, and ensures future compatibility with all supported Minecraft–Forge versions."
+  "notes": "This release finalizes the transition to a fully dynamic, version-aware Jinja2 template system. All templates now render automatically from versions.json, covering every Minecraft–Forge version from 1.19.2 through 1.21.10. It provides long-term maintainability, eliminates redundancy, and ensures consistency between CLI and template repositories."
 }
