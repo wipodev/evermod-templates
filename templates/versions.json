@@ -10,7 +10,11 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 9,
+    "forge_resource_format": 9,
+    "forge_data_format": 10,
+    "description": "${mod_id} resources"
   },
   "1.19.3": {
     "minecraft_version_range": "[1.19.3,1.20)",
@@ -23,7 +27,11 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 12,
+    "forge_resource_format": 12,
+    "forge_data_format": 10,
+    "description": "${mod_id} resources"
   },
   "1.19.4": {
     "minecraft_version_range": "[1.19.4,1.20)",
@@ -36,7 +44,10 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 13,
+    "forge_server_data_format": 12,
+    "description": { "text": "${mod_id} resources" }
   },
   "1.20": {
     "minecraft_version_range": "[1.20,1.21)",
@@ -49,7 +60,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 15,
+    "description": { "text": "${mod_id} resources" }
   },
   "1.20.1": {
     "minecraft_version_range": "[1.20.1,1.21)",
@@ -62,7 +75,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 15,
+    "description": { "text": "${mod_id} resources" }
   },
   "1.20.2": {
     "minecraft_version_range": "[1.20.2,1.21)",
@@ -75,7 +90,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": false
+    "merge_source_sets": false,
+    "pack_format": 18,
+    "description": { "text": "${mod_id} resources" }
   },
   "1.20.3": {
     "minecraft_version_range": "[1.20.3,1.21)",
@@ -88,7 +105,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 22,
+    "description": "${mod_id} resources"
   },
   "1.20.4": {
     "minecraft_version_range": "[1.20.4,1.21)",
@@ -101,7 +120,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 22,
+    "description": "${mod_id} resources"
   },
   "1.20.6": {
     "minecraft_version_range": "[1.20.6,1.21)",
@@ -114,7 +135,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 32,
+    "description": "${mod_id} resources"
   },
   "1.21": {
     "minecraft_version_range": "[1.21,1.22)",
@@ -127,7 +150,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "joptSimple": true,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 34,
+    "description": "${mod_id} resources"
   },
   "1.21.1": {
     "minecraft_version_range": "[1.21.1,1.22)",
@@ -140,7 +165,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "joptSimple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 34,
+    "description": "${mod_id} resources"
   },
   "1.21.3": {
     "minecraft_version_range": "[1.21.3,1.22)",
@@ -153,7 +180,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 42,
+    "description": "${mod_id} resources"
   },
   "1.21.4": {
     "minecraft_version_range": "[1.21.4,1.22)",
@@ -166,7 +195,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 46,
+    "description": "${mod_id} resources"
   },
   "1.21.5": {
     "minecraft_version_range": "[1.21.5,1.22)",
@@ -179,7 +210,9 @@
     "eventBus7": false,
     "eventBus_version": "",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 55,
+    "description": "${mod_id} resources"
   },
   "1.21.6": {
     "minecraft_version_range": "[1.21.6,1.22)",
@@ -192,7 +225,9 @@
     "eventBus7": true,
     "eventBus_version": "7.0-beta.10",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 63,
+    "description": "${mod_id} resources"
   },
   "1.21.7": {
     "minecraft_version_range": "[1.21.7,1.22)",
@@ -205,7 +240,9 @@
     "eventBus7": true,
     "eventBus_version": "7.0-beta.10",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 64,
+    "description": "${mod_id} resources"
   },
   "1.21.8": {
     "minecraft_version_range": "[1.21.8,1.22)",
@@ -218,7 +255,9 @@
     "eventBus7": true,
     "eventBus_version": "7.0-beta.10",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "pack_format": 64,
+    "description": "${mod_id} resources"
   },
   "1.21.9": {
     "minecraft_version_range": "[1.21.9,1.22)",
@@ -231,7 +270,10 @@
     "eventBus7": true,
     "eventBus_version": "7.0-beta.12",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "min_format": 88,
+    "max_format": 88,
+    "description": "${mod_id} resources"
   },
   "1.21.10": {
     "minecraft_version_range": "[1.21.10,1.22)",
@@ -244,6 +286,9 @@
     "eventBus7": true,
     "eventBus_version": "7.0-beta.12",
     "jopt_simple": false,
-    "merge_source_sets": true
+    "merge_source_sets": true,
+    "min_format": 88,
+    "max_format": 88,
+    "description": "${mod_id} resources"
   }
 }

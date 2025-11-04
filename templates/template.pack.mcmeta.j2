@@ -1,0 +1,20 @@
+{
+  "pack": {
+    "description": {{ description | tojson(indent=None) }},
+    {% if min_format is defined and max_format is defined -%}
+    "min_format": {{ min_format }},
+    "max_format": {{ max_format }}
+    {% elif pack_format is defined -%}
+    "pack_format": {{ pack_format }}
+    {% endif -%}
+    {% if forge_resource_format is defined -%}
+    ,"forge:resource_pack_format": {{ forge_resource_format }}
+    {% endif -%}
+    {% if forge_data_format is defined -%}
+    ,"forge:data_pack_format": {{ forge_data_format }}
+    {% endif -%}
+    {% if forge_server_data_format is defined -%}
+    ,"forge:server_data_pack_format": {{ forge_server_data_format }}
+    {% endif %}
+  }
+}
