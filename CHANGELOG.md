@@ -5,6 +5,31 @@ This file complements `manifest.json`, which always describes only the latest ve
 
 ---
 
+## [2.0.0] - 2026-01-12
+
+### Added
+
+- Added full compatibility with **EverMod CLI 2.0.0** using a submodule-based EverMod integration.
+- Introduced template support for both **standalone mods** and **workspace-based** projects automatically detected by the CLI.
+- Enabled safer and always up-to-date EverMod usage through Git submodules instead of local copies.
+- Improved template context handling to match the new EverMod CLI rendering system.
+
+### Changed
+
+- Refactored all templates to remove legacy assumptions about locally embedded EverMod files.
+- Updated Gradle-related templates to align with the new submodule-based workflow.
+- Simplified template variables and structure to reflect the reorganized CLI codebase.
+- Improved generation of `settings.gradle` and project layouts under the new system.
+- Reorganized template files for better clarity and long-term maintainability.
+
+### Removed
+
+- Removed support for the legacy EverMod local installation workflow.
+
+---
+
+---
+
 ## [1.2.0] - 2025-11-03
 
 ### Added

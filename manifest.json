@@ -1,14 +1,13 @@
 {
-  "version": "1.2.0",
-  "released": "2025-11-03",
+  "version": "2.0.0",
+  "released": "2026-01-12",
   "changelog": [
-    "Added dynamic pack.mcmeta.j2 template supporting all Forge versions up to 1.21.10.",
-    "Integrated unified version mapping through versions.json for automatic Jinja2 rendering.",
-    "Expanded version metadata with fields like forge_gradle, java_version, eventBus7, reobf, and min/max_format for newer releases.",
-    "Enhanced create command compatibility with the new template system in evermod-cli.",
-    "Refined description handling in pack.mcmeta to match Minecraft JSON format evolution from 1.19.2 to 1.21.10.",
-    "Improved maintainability by consolidating all resource, data, and configuration templates into a single, version-aware structure.",
-    "Ensured full synchronization between evermod-cli and evermod-templates repositories for seamless mod creation."
+    "Updated all templates to be compatible with EverMod CLI 2.0.0 submodule-based architecture.",
+    "Removed legacy assumptions about local EverMod files embedded in generated projects.",
+    "Adapted templates to support both standalone mods and workspace-based setups detected by the CLI.",
+    "Refactored Gradle-related templates to align with the new EverMod integration workflow.",
+    "Simplified template variables and rendering logic to match the new CLI context structure.",
+    "Ensured proper generation of settings.gradle and project layout under the new system."
   ],
-  "notes": "This release finalizes the transition to a fully dynamic, version-aware Jinja2 template system. All templates now render automatically from versions.json, covering every Minecraft–Forge version from 1.19.2 through 1.21.10. It provides long-term maintainability, eliminates redundancy, and ensures consistency between CLI and template repositories."
+  "notes": "This release adapts all templates to the EverMod CLI 2.0.0 architecture. The new system relies on EverMod as a Git submodule, ensuring safer updates, better version synchronization, and a simpler workflow. Templates now correctly support both individual mods and workspace environments, and no longer depend on legacy local EverMod setups. This version is required for use with EverMod CLI 2.0.0 or newer."
 }

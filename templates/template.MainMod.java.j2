@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import net.evermod.eventbus.EverBus;
 import net.evermod.common.network.ChannelManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -23,16 +24,13 @@ public class MainMod {
 
   public MainMod() {
     MinecraftForge.EVENT_BUS.register(this);
-    @SuppressWarnings("removal")
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    IEventBus bus = EverBus.getBus();
 
     bus.addListener(this::commonSetup);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
-    ChannelManager.register(MODID);
-    // Register network packets here
-    // Example: ChannelManager.registerPacket(YourPacketClass.class);
+    ChannelManager.autoRegister(MODID);
   }
 
   private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue =

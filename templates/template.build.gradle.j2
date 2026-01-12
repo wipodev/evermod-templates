@@ -85,6 +85,16 @@ dependencies {
     {%- endif %}
 }
 
+{%- if include_evermod %}
+sourceSets {
+    main {
+        java {
+            srcDir project(":EverMod").file("evermod-${minecraft_version}/src/main/java")
+        }
+    }
+}
+{%- endif %}
+
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
             minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
