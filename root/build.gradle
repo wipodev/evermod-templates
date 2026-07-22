@@ -1,0 +1,75 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0, 6.2)' apply false
+}
+
+subprojects {
+    if (project.path.startsWith(':projects:') && project.path.count(':') > 1) {
+        def fgVersion = project.hasProperty('forge_gradle_version') ? project.forge_gradle_version : '[6.0, 6.2)'
+        apply plugin: 'net.minecraftforge.gradle'
+        apply plugin: 'eclipse'
+        apply plugin: 'idea'
+
+        // Heredar versión y grupo de las properties (locales o raíz)
+        base { archivesName = mod_id }
+        
+        // --- LÓGICA DE VERSIÓN AUTOMÁTICA POR TIEMPO ---
+        def releaseType = project.hasProperty('mod_release_type') ? project.mod_release_type.trim().toLowerCase() : 'release'
+        def versionSuffix = ""
+
+        if (releaseType != 'release' && !releaseType.isEmpty()) {
+            def timestamp = new Date().format("yyyyMMdd.HHmm")
+            versionSuffix = "-${releaseType}${timestamp}"
+        }
+        version = "${project.mod_version}${versionSuffix}+${minecraft_version}"
+        group = project.mod_group_id
+
+        // Configuración de codificación universal
+        tasks.withType(JavaCompile).configureEach {
+            options.encoding = 'UTF-8'
+        }
+
+        // Tarea para procesar mods.toml y pack.mcmeta automáticamente
+        tasks.named('processResources', ProcessResources).configure {
+            var replaceProperties = [
+                minecraft_version: minecraft_version, 
+                minecraft_version_range: minecraft_version_range,
+                forge_version: forge_version, 
+                forge_version_range: forge_version_range,
+                loader_version_range: loader_version_range,
+                mod_id: mod_id, 
+                mod_name: mod_name, 
+                mod_license: mod_license, 
+                mod_version: version,
+                mod_authors: mod_authors, 
+                mod_url: mod_url, 
+                mod_logo: mod_logo, 
+                mod_description: mod_description,
+            ]
+            inputs.properties replaceProperties
+
+            filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+                expand replaceProperties + [project: project]
+            }
+        }
+
+        // Configuración del Manifest del JAR (común para todas las versiones)
+        tasks.named('jar', Jar).configure {
+            manifest {
+                attributes([
+                    'Specification-Title'     : mod_id,
+                    'Specification-Vendor'    : mod_authors,
+                    'Specification-Version'   : '1',
+                    'Implementation-Title'    : project.name,
+                    'Implementation-Version'  : project.jar.archiveVersion,
+                    'Implementation-Vendor'   : mod_authors,
+                    'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                ])
+            }
+            if (project.hasProperty('use_reobf') && project.use_reobf.toBoolean()) {
+                finalizedBy 'reobfJar'
+            }
+        }
+    }
+}

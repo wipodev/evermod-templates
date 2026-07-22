@@ -1,0 +1,91 @@
+java.toolchain.languageVersion = JavaLanguageVersion.of({{ java_version }})
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    {%- if not reobf %}
+    reobf = false
+    {%- endif %}
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            {%- if remapping %}
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            {%- endif %}
+            mods { "${mod_id}" { source sourceSets.main } }
+        }
+        client {
+          // Uncomment this line if you don't want vanilla mobs to spawn while you're testing.
+          // property 'minecraft.client.local-server.spawn-monsters', 'false'
+        }
+        server {
+            args '--nogui'
+            // Uncomment this line if you don't want vanilla mobs to spawn while you're testing.
+            // property 'minecraft.server.spawn-monsters', 'false'
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+	          srcDirs = [
+                rootProject.file("src/main/java"),
+                project(":EverMod").file("evermod-${minecraft_version}/src/main/java"),
+                {%- if include_geckolib %}
+                project(":EverMod").file("evermod-${minecraft_version}/src/geckolib/java")
+                {%- endif %}
+            ]
+        }
+	      resources {
+            srcDirs = [
+                rootProject.file("src/main/resources"),
+                project.file("src/main/resources"),
+                "src/generated/resources"
+            ]
+        }
+    }
+}
+
+repositories {
+    // Put repositories for dependencies here
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+    {%- if include_geckolib %}
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+    {%- endif %}
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    {%- if include_geckolib %}
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-{{ geckolib_version }}')
+    {%- endif %}
+    {%- if eventBus7 %}
+    // Forge 1.21.6+ uses EventBus 7, which shifts most of its runtime validation to compile-time via an annotation processor
+    // to improve performance in production environments. This line is required to enable said compile-time validation
+    // in your development environment, helping you catch issues early.
+    annotationProcessor 'net.minecraftforge:eventbus-validator:{{ eventBus_version }}'
+    {%- endif %}
+    {%- if joptSimple %}
+    // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transitive dependencies request 6.0+ 
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    {%- endif %}
+}
+
+// optional
+idea.module { downloadJavadoc = downloadSources = true }
+eclipse { synchronizationTasks 'genEclipseRuns' }
+
+{% if merge_source_sets -%}
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+{%- endif %}

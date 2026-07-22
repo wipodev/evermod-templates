@@ -1,161 +1,126 @@
 # 🧩 EverMod Templates
 
-**EverMod Templates** is the official repository of reusable **Forge MDK templates**
-used by the [EverMod CLI](https://github.com/wipodev/evermod-cli) to create and manage
-Minecraft Forge mods across multiple versions — **from 1.19.2 up to the latest releases.**
+Official template profiles and code generation pipelines for the **EverMod Ecosystem**. This repository contains the Jinja2 blueprint configurations, Gradle wrappers, and metadata profiles used by the [EverMod CLI](https://github.com/wipodev/evermod-cli) to automate multi-version Forge workspace creation.
 
 ---
 
-## 🧱 Purpose
+## 🚀 Overview
 
-This repository provides a **unified, dynamic, and version-aware** system
-for generating Forge mod projects using **Jinja2 templates**.
+`evermod-templates` powers the dynamic project creation process. Instead of static MDK files, it relies on a **Pipeline-Driven Generation Engine**.
 
-Each mod created with the EverMod CLI uses these templates to build
-a fully configured project — complete with Gradle files, mod metadata,
-and starter Java classes — all tailored to the selected Minecraft version.
+When executing project creation commands in the CLI, this repository provides:
 
-By maintaining all logic and version configuration here, EverMod ensures:
-
-- ✅ Consistent project structure across all Minecraft versions.
-- ⚡ Fast mod creation via the interactive `evermod create` command.
-- 🔄 Centralized updates for Gradle and Forge version compatibility.
-- 🧩 Automatic registration in multi-mod workspaces.
-
----
-
-## 🚀 How It Works
-
-When you run:
-
-```bash
-evermod create
-```
-
-The CLI starts an **interactive wizard** that:
-
-1. Asks for basic information (mod name, mod ID, author, Minecraft version, etc.).
-2. Reads the configuration for that version from `versions.json`.
-3. Uses the **Jinja2 templates** to render:
-
-   - `build.gradle`
-   - `gradle.properties`
-   - `MainMod.java` (auto-configured main mod class)
-
-4. Copies the base folder structure:
-
-   ```
-   src/main/java/net/{mod_group}/{mod_id}/
-   src/main/resources/
-   src/main/resources/META-INF/
-   ```
-
-5. Inserts `mods.toml`, `pack.mcmeta`, and `LICENSE.txt` automatically.
-6. If not part of a workspace, it also includes the Gradle wrapper and `.gitignore` files.
-7. Registers the new mod inside your workspace `settings.gradle` when applicable.
+- **Modular Multi-Project Structure**: Pre-configured Gradle setup designed for single or multi-version Forge workspaces.
+- **Jinja2 Dynamic Rendering**: Automated variable interpolation for package paths, Mod IDs, Java versions, and dependencies.
+- **Profile Driven Engine**: Fully customizable orchestration defined via `templates.json`.
+- **Unified Technical Profiles**: Technical metadata mapping for Minecraft versions ranging from `1.19.2` up to `1.21.x+`.
 
 ---
 
 ## 📦 Repository Structure
 
-```
+The layout is organized into functional zones to isolate root project settings from modular version projects:
+
+```text
 evermod-templates/
-├── CHANGELOG.md
-├── manifest.json                # Template version info and changelog
-├── README.md
-└── templates/
-    ├── gradle/wrapper/           # Wrapper configuration files
-    ├── .gitattributes
-    ├── .gitignore
-    ├── build.gradle.j2           # Jinja2 template for all Forge builds
-    ├── gradle.properties.j2      # Jinja2 template for properties
-    ├── gradlew                   # Gradle wrapper scripts
-    ├── gradlew.bat               # Gradle wrapper scripts
-    ├── LICENSE.txt               # Forge license
-    ├── MainMod.java.j2           # Template for the mod's main class
-    ├── mods.toml                 # Standard Forge mod metadata file
-    ├── pack.mcmeta               # Required by Minecraft for resource packs
-    ├── settings.gradle           # Default Gradle settings file for standalone mods
-    └── versions.json             # Version mapping and rendering metadata
+├── templates.json          # Master execution pipeline for CLI project generation
+├── version.json            # Repository metadata and version tracking
+├── version_profiles.json   # Deep configuration mapping per Minecraft/Forge version
+├── root/                   # Base workspace files (Gradle wrapper, settings, root build)
+│   ├── build.gradle
+│   ├── gradlew / gradlew.bat
+│   ├── gradle.properties.j2
+│   └── settings.gradle.j2
+├── src/                    # Java source templates and common resources
+│   ├── MainMod.java.j2
+│   ├── mods.toml
+│   └── logo.png
+└── projects/               # Version-specific project templates
+    ├── build.gradle.j2
+    ├── gradle.properties.j2
+    └── pack.mcmeta.j2
 ```
-
-### 🗂️ Description by File
-
-| File                               | Purpose                                                          |
-| ---------------------------------- | ---------------------------------------------------------------- |
-| **CHANGELOG.md**                   | Contains version history in Markdown format.                     |
-| **manifest.json**                  | Stores the latest release info and changelog for updates.        |
-| **README.md**                      | Documentation about usage and structure.                         |
-| **gradle/wrapper/**                | Holds the Gradle wrapper binaries and configuration.             |
-| **.gitattributes**, **.gitignore** | Git configuration for line endings and ignored files.            |
-| **build.gradle.j2**                | Jinja2 template for generating the mod's build file dynamically. |
-| **gradle.properties.j2**           | Template defining mod metadata and Gradle configuration.         |
-| **gradlew**, **gradlew.bat**       | Gradle launcher scripts for Linux/macOS and Windows.             |
-| **LICENSE.txt**                    | Default Forge license template.                                  |
-| **MainMod.java.j2**                | Starter Java file for the mod’s entry point.                     |
-| **mods.toml**, **pack.mcmeta**     | Required Forge and Minecraft metadata.                           |
-| **settings.gradle**                | Basic settings for mods created outside a workspace.             |
-| **versions.json**                  | Defines version-specific properties for Minecraft and Forge.     |
 
 ---
 
-## ⚙️ `versions.json`
+## ⚙️ Architecture & Mechanics
 
-This file defines every supported Minecraft–Forge version combination,
-along with their build metadata and Gradle configuration:
+### 1. The Pipeline Engine (`templates.json`)
+
+The `templates.json` file dictates how the CLI constructs the workspace. Each profile defines a execution pipeline of file copies and Jinja2 renderings:
 
 ```json
 {
-  "1.21.10": {
-    "forge_version": "60.0.14",
-    "forge_gradle": "[6.0.36,6.2)",
-    "java_version": "21",
-    "reobf": false,
-    "include_maven_repositories": true,
-    "eventBus7": true,
-    "eventBus_version": "7.0-beta.12",
-    "merge_source_sets": true
+  "standar": {
+    "description": "Standard multi-version Forge workspace structure",
+    "pipeline": [
+      {
+        "origin": "root/settings.gradle.j2",
+        "target": "settings.gradle",
+        "jinja": true,
+        "loop_versions": false
+      },
+      {
+        "origin": "projects/build.gradle.j2",
+        "target": "projects/forge-{{minecraft_version}}/build.gradle",
+        "jinja": true,
+        "loop_versions": true
+      }
+    ]
   }
 }
 ```
 
-Each entry drives the automatic generation of the final `build.gradle`
-and `gradle.properties` through the Jinja2 rendering process.
+- `origin`: File path inside this template repository.
+
+- `target`: Destination path in the target workspace (supports dynamic placeholders).
+
+- `jinja`: If `true`, the CLI processes the file using the Jinja2 template engine.
+
+- `loop_versions`: If `true`, the pipeline replicates and renders the file for every selected Minecraft version.
+
+### 2. Technical Profiles (`version_profiles.json`)
+
+Contains target properties required for exact Forge, Gradle, Java Toolchain, and dependency compatibility across Minecraft releases:
+
+```json
+{
+  "1.20.1": {
+    "minecraft_version_range": "[1.20.1,1.21)",
+    "forge_version": "47.4.10",
+    "java_version": "17",
+    "remapping": true,
+    "geckolib_version": "1.20.1:4.8.2",
+    "pack_format": 15
+  }
+}
+```
 
 ---
 
-## 🔄 Updating Templates
+## 🛠️ CLI Integration Workflow
 
-To update your local templates, run:
+1. **Fetch / Sync**: The CLI syncs the template cache (`~/.evermod/templates`) with this repository.
 
-```bash
-evermod update
-```
+2. **Profile Selection**: Reads `templates.json` to present available workspace profiles to the developer.
 
-The CLI will:
+3. **Variable Mapping**: Prompts for mod metadata (ID, Name, Package, Target Minecraft Versions).
 
-1. Fetch the latest release info from this repository (`manifest.json`).
-2. Compare it with your local version (`~/.evermod/version.json`).
-3. Show you the changelog.
-4. Download and replace your local template set automatically.
+4. **Pipeline Execution**: The CLI processes each entry in `templates.json`, expanding templates like `MainMod.java.j2` and version subprojects into a ready-to-run environment.
 
 ---
 
 ## 🧠 About EverMod
 
-**EverMod** is a modular framework and CLI by **Wipodev**
-designed to simplify **multi-version Minecraft Forge mod development**.
-It enables developers to maintain a single, clean codebase that can
-compile across different Forge versions without manually adjusting mappings
-or Gradle configurations.
+**EverMod** is a modular framework and CLI ecosystem created by **wipodev** to streamline multi-version Minecraft Forge mod development. It allows developers to write core logic once and seamlessly compile across multiple Minecraft and Forge versions without manual mapping or Gradle boilerplate management.
 
-👉 Main Project: [EverMod Framework](https://github.com/wipodev/EverMod)
+- **Main Framework**: [EverMod](https://github.com/wipodev/EverMod)
+- **Command Line Interface**: [EverMod CLI](https://github.com/wipodev/evermod-cli)
 
 ---
 
 ## ⚖️ License
 
-© 2025 **Wipodev** — All rights reserved.
-The EverMod templates are intended for internal and personal use
-within the EverMod ecosystem. Redistribution outside of EverMod
-must retain credit to the author and repository source.
+Distributed under the terms of the **GNU Lesser General Public License v2.1**. See [root/LICENSE.txt](root/LICENSE.txt) for the full license text and terms regarding Forge MDK redistribution.
+
+© 2026 **wipodev** — Created for the EverMod ecosystem.
