@@ -1,6 +1,6 @@
 # 🧩 EverMod Templates
 
-Official template profiles and code generation pipelines for the **EverMod Ecosystem**. This repository contains the Jinja2 blueprint configurations, Gradle wrappers, and metadata profiles used by the [EverMod CLI](https://github.com/wipodev/evermod-cli) to automate multi-version Forge workspace creation.
+Official template profiles and code generation pipelines for the **EverMod Ecosystem**. This repository contains the Jinja2 blueprint configurations, Gradle wrappers, and metadata profiles used by the [EverMod CLI](https://evermod.wipodev.com) to automate multi-version Forge workspace creation.
 
 ---
 
@@ -114,8 +114,8 @@ Contains target properties required for exact Forge, Gradle, Java Toolchain, and
 
 **EverMod** is a modular framework and CLI ecosystem created by **wipodev** to streamline multi-version Minecraft Forge mod development. It allows developers to write core logic once and seamlessly compile across multiple Minecraft and Forge versions without manual mapping or Gradle boilerplate management.
 
-- **Main Framework**: [EverMod](https://github.com/wipodev/EverMod)
-- **Command Line Interface**: [EverMod CLI](https://github.com/wipodev/evermod-cli)
+- **Main Framework**: [EverMod](https://evermod.wipodev.com)
+- **Command Line Interface**: [EverMod CLI](https://evermod.wipodev.com)
 
 ---
 
