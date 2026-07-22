@@ -1,6 +1,7 @@
 {
   "standar": {
-    "description": "Standard multi-version Forge workspace structure",
+    "description_key": "template_standard_desc",
+    "description": "Standard Minecraft Forge mod structure with multi-version support.",
     "pipeline": [
       {
         "origin": "root/settings.gradle.j2",
