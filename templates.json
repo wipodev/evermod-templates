@@ -1,0 +1,103 @@
+{
+  "standar": {
+    "description": "Standard multi-version Forge workspace structure",
+    "pipeline": [
+      {
+        "origin": "root/settings.gradle.j2",
+        "target": "settings.gradle",
+        "jinja": true,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/LICENSE.txt",
+        "target": "LICENSE.txt",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/gradlew.bat",
+        "target": "gradlew.bat",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/gradlew",
+        "target": "gradlew",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/gradle.properties.j2",
+        "target": "gradle.properties",
+        "jinja": true,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/build.gradle",
+        "target": "build.gradle",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/.gitignore",
+        "target": ".gitignore",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/.gitattributes",
+        "target": ".gitattributes",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/gradle/wrapper/gradle-wrapper.jar",
+        "target": "gradle/wrapper/gradle-wrapper.jar",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "root/gradle/wrapper/gradle-wrapper.properties",
+        "target": "gradle/wrapper/gradle-wrapper.properties",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "src/MainMod.java.j2",
+        "target": "src/main/java/{{package_path}}/MainMod.java",
+        "jinja": true,
+        "loop_versions": false
+      },
+      {
+        "origin": "src/logo.png",
+        "target": "src/main/resources/logo.png",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "src/mods.toml",
+        "target": "src/main/resources/META-INF/mods.toml",
+        "jinja": false,
+        "loop_versions": false
+      },
+      {
+        "origin": "projects/build.gradle.j2",
+        "target": "projects/forge-{{minecraft_version}}/build.gradle",
+        "jinja": true,
+        "loop_versions": true
+      },
+      {
+        "origin": "projects/gradle.properties.j2",
+        "target": "projects/forge-{{minecraft_version}}/gradle.properties",
+        "jinja": true,
+        "loop_versions": true
+      },
+      {
+        "origin": "projects/pack.mcmeta.j2",
+        "target": "projects/forge-{{minecraft_version}}/src/main/resources/pack.mcmeta",
+        "jinja": true,
+        "loop_versions": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+package {{ package_name }};
+
+import net.evermod.EverMod;
+import net.evermod.eventbus.EverBus;
+import net.evermod.logging.EverLogger;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(MainMod.MODID)
+public class MainMod {
+  public static final String MODID = "{{ mod_id }}";
+  public static final EverLogger LOGGER = new EverLogger(MODID);
+
+  public MainMod() {
+    MinecraftForge.EVENT_BUS.register(this);
+    IEventBus bus = EverBus.getBus();
+    EverMod.init(MODID, bus);
+
+  }
+}

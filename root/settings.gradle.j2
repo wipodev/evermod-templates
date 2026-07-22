@@ -13,13 +13,16 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.10.0'
 }
 
-rootProject.name = "{{ project_name }}"
+rootProject.name = "{{ mod_name }}"
 
-{%- if include_evermod %}
+def userHome = System.getProperty("user.home")
+def evermodDir = file("${userHome}/.evermod/source")
+
 include("EverMod")
-{%- endif %}
-{%- if workspace %}
-{%- for inc in includes %}
-{{ inc }}
-{%- endfor %}
-{%- endif %}
+project(":EverMod").projectDir = evermodDir
+
+file('projects').eachDir { dir ->
+    if (new File(dir, 'build.gradle').exists()) {
+        include "projects:${dir.name}"
+    }
+}
